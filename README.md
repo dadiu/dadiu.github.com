@@ -9,5 +9,5 @@
 
 ## 工作模板说明
 
-- [每周抢购](/work/M3_diamond/)
-- [每月珍宝](/work/M3_RushBuyModule/)
+- [每周抢购](/work/M3_RushBuyModule/)
+- [每月珍宝](/work/M3_diamond/)
