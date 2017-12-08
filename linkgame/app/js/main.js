@@ -186,7 +186,30 @@
         even() {
 
             let _t = this;
-            $("#app").on("touchend", ".pic-link", function () {
+            if(/iphone|ipad|android/.test(navigator.userAgent)){
+
+                $("#app").on("touchend", ".pic-link", function () {
+                    $(".pic-link").removeClass("pic-false");
+                    if (!$(this).hasClass('pic-true')) {
+                        _t.pointFn($(this))
+                    }
+                })
+    
+                // 开始
+                $("#fn-start").on("touchend", function () {
+                    TOTALNum = ROW * COLUMN;
+                    _t.startView('start');
+                });
+    
+                // 刷新
+                $("#fn-reset").on("touchend", function () {
+                    _t.startView('reset');
+                });
+
+                return;
+            };
+
+            $("#app").on("click", ".pic-link", function () {
                 $(".pic-link").removeClass("pic-false");
                 if (!$(this).hasClass('pic-true')) {
                     _t.pointFn($(this))
@@ -194,15 +217,16 @@
             })
 
             // 开始
-            $("#fn-start").on("touchend", function () {
+            $("#fn-start").on("click", function () {
                 TOTALNum = ROW * COLUMN;
                 _t.startView('start');
             });
 
             // 刷新
-            $("#fn-reset").on("touchend", function () {
+            $("#fn-reset").on("click", function () {
                 _t.startView('reset');
             });
+            
         },
 
         // 记录点击
