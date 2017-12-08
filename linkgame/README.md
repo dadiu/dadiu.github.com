@@ -1,9 +1,9 @@
 # 连连看
 
 
-## 教程
+## 参考
 - https://zhuanlan.zhihu.com/p/27347906
-
+- http://blog.csdn.net/artzok/article/details/51622782
 
 ## 技术支持
 
