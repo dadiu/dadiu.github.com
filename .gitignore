@@ -1,4 +1,13 @@
-linkgame/node_modules/
-linkgame/test/
-linkgame/bower_components/
-linkgame/app/
+*/**/node_modules/
+*/**/bower_components/
+*/test/
+
+
+work/*/img/
+work/*/publish/
+work/*/src/
+work/*/dist/
+work/*/data/
+work/*/*.html
+work/*/*.js
+work/*/*.json
