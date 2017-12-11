@@ -3,18 +3,18 @@
     margin: 0;
     border: 0;
     box-sizing: border-box;
+    -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
 }
 
-$border-gray: 1px solid #aaa;
+$border-gray: 1px solid #888;
 $border-crt: 2px solid orange;
-$bg-normal: #333;
+$bg-normal: #555;
 $bg-border: #999;
-.w-normal {
-	width: 48px;
-	height: 48px;
-}
-
+$bg-line: darkred;
+$w-container: 480px;
+$row: 10;
+$column: 10;
 body {
     font: normal 12px/1.8 "微软雅黑";
 }
@@ -44,11 +44,46 @@ h1 {
     display: none !important;
 }
 
+#container {
+    position: relative;
+    width: $w-container;
+    height: $w-container;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
 #app {
     background: $bg-normal;
     height: 0;
-    overflow: hidden;
-    position: relative;
+}
+
+#line1,
+#line2,
+#line3 {
+    @extend .animated-slow;
+    display: none;
+    position: absolute;
+    background-color: $bg-line;
+    &:after,
+    &:before {
+        position: absolute;
+        content: "";
+        width: 3px;
+        height: 3px;
+        background-color: $bg-line;
+    }
+    &:before {
+        top: -1px;
+        left: -1px;
+    }
+    &:after {
+        bottom: -1px;
+        right: -1px;
+    }
+    &.fn-show {
+        display: block;
+        @extend .fadeIn;
+    }
 }
 
 table {
@@ -62,20 +97,21 @@ tr {
     &:first-child,
     &:last-child {
         td {
-            height: 10px;
+            // height: 20px;
             background: $bg-border;
         }
     }
 }
 
 td {
-	@extend .w-normal;
     cursor: pointer;
     border-right: $border-gray;
     border-bottom: $border-gray;
+    width: $w-container / $column;
+    height: $w-container / $row;
     &:first-child,
     &:last-child {
-        width: 10px;
+        // width: 20px;
         background: $bg-border;
     }
 }
@@ -88,11 +124,12 @@ img {
 // pic
 .pic {
     &-link {
-		@extend .animated;
-		@extend .w-normal;
+        @extend .animated;
         display: block;
         background: no-repeat 0 0;
         background-size: 100% 100%;
+        width: $w-container / $column - 1;
+        height: $w-container / $row - 1;
         &.fn-crt {
             border: $border-crt;
         }
@@ -106,42 +143,16 @@ img {
     }
 }
 
-@each $pic in 10005,
-20005,
-30005,
-40005,
-60005,
-80005,
-90005,
-100005,
-120005,
-130005,
-140005,
-150005,
-160005,
-170005,
-180005,
-190005,
-200005,
-210005,
-220005,
-230005,
-240005,
-250005,
-270005,
-280005,
-300005,
-310005,
-320005,
-320005 {
-    .pic-#{$pic} {
-        background-image: url("../img/#{$pic}.png");
-    }
-}
-
 .animated {
     -webkit-animation-duration: 1s;
     animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both
+}
+
+.animated-slow {
+    -webkit-animation-duration: 1.5s;
+    animation-duration: 1.5s;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both
 }
@@ -254,9 +265,108 @@ img {
     animation-name: shake
 }
 
-@media screen and (max-width:640px) {
-	.w-normal{
-		width: 40px;
-		height: 40px;
-	}
+@-webkit-keyframes fadeIn {
+    0%,
+    100% {
+        opacity: 0
+    }
+    50% {
+        opacity: 1
+    }
+}
+
+@keyframes fadeIn {
+    0%,
+    100% {
+        opacity: 0
+    }
+    50% {
+        opacity: 1
+    }
+}
+
+.fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn
+}
+
+// media
+@media screen and (max-width:480px) {
+
+    $w-container-min: 360px;   
+    
+    #container {
+        width: $w-container-min;
+        height: $w-container-min;
+    }
+
+    td {
+        width: $w-container-min / $column;
+        height: $w-container-min / $row;
+    }
+    
+    // pic
+    .pic-link {
+            width: $w-container-min / $column - 1;
+            height: $w-container-min / $row - 1;
+        }
+}
+
+
+// media
+@media screen and (max-width:320px) {
+    
+    $w-container-mini: 320px;   
+    
+    #container {
+        width: $w-container-mini;
+        height: $w-container-mini;
+    }
+
+    td {
+        width: $w-container-mini / $column;
+        height: $w-container-mini / $row;
+    }
+    
+    // pic
+    .pic-link {
+            width: $w-container-mini / $column - 1;
+            height: $w-container-mini / $row - 1;
+        }
+}
+
+
+
+// pic arr 
+@each $pic in 10005,
+20005,
+30005,
+40005,
+60005,
+80005,
+90005,
+100005,
+120005,
+130005,
+140005,
+150005,
+160005,
+170005,
+180005,
+190005,
+200005,
+210005,
+220005,
+230005,
+240005,
+250005,
+270005,
+280005,
+300005,
+310005,
+320005,
+320005 {
+    .pic-#{$pic} {
+        background-image: url("../img/#{$pic}.png");
+    }
 }

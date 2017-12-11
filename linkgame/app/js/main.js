@@ -11,7 +11,7 @@
     var COLUMN = 8;         // y
     var PICNum = 16;         // pic 必须能被 x*y 整除
     var TOTALNum = ROW * COLUMN;
-
+    var W_line = parseInt($("#container").width())/(COLUMN+2);
 
     // CODEARR = [  x = index
     //     [pic0, pic1],
@@ -24,7 +24,7 @@
         myColumn: COLUMN + 2,
 
         init(status) {
-            
+
             let _t = this;
             let picArr = status === 'start' ? _t.picFn() : _t.resetPicFn();
 
@@ -58,11 +58,11 @@
             for (; d < this.myColumn; d++) {
 
                 CODEARR[r].push(arr[d]);
-                if(r===0 || r === this.myRow-1 || d===0 || d === this.myColumn -1){
+                if (r === 0 || r === this.myRow - 1 || d === 0 || d === this.myColumn - 1) {
                     TD += '<td></td>';
                 } else {
 
-                    if(arr[d]===null){
+                    if (arr[d] === null) {
                         TD += '<td><i class="pic-link pic-true"></i></td>';
                     } else {
                         TD += '<td id="pic_' + r + '_' + d + '"><i data-x="' + r + '"data-y="' + d + '" class="pic-link pic-' + arr[d] + '" ></i></td>';
@@ -74,10 +74,25 @@
             return TD;
         },
 
+        picRandomFn: function () {
+
+            picData.sort(function () {
+
+                return 0.5 - Math.random();
+
+            })
+        },
+
+
         /**
          * @param picData
          */
         picFn: function () {
+
+            this.picRandomFn();
+
+            // console.log(picData);
+
             let i = 0;
             let j = 0;
             let len = picData.length;
@@ -139,7 +154,7 @@
         // 重置图片顺序
         resetPicFn() {
 
-            console.log(CODEARR);
+            // console.log(CODEARR);
 
             let _t = this;
             let i = 0;
@@ -149,14 +164,87 @@
 
             for (; i < ROW; i++) {
                 childArr = resetArr[i].slice(1, _t.myColumn - 1);
-                backArr = backArr.concat(childArr);                
+                backArr = backArr.concat(childArr);
             };
-            
-            backArr.sort(function(){
+
+            backArr.sort(function () {
                 return 0.5 - Math.random();
             });
 
             return this.picGroupFn(backArr);
+        }
+    };
+
+    var line = {
+
+        init() {
+
+            // this.drawCountFn({ x: 2, y: 4 }, { x: 2, y: 7 });
+        },
+
+        /**
+         * 计算连线
+         */
+        drawCountFn() {
+
+            let _t = this;
+            let ags = arguments;
+            let len = ags.length;
+            let i = 0;
+            let k = 0;
+            let srcPt = null;
+            let destPt = null;
+
+            for (; i < len; i++) {
+                k++;
+                srcPt = arguments[i];
+                destPt = arguments[k] ? arguments[k] : null;
+
+                if (destPt !== null) {
+                    _t.drawFn(srcPt, destPt, k);
+                }
+            }
+        },
+
+        /**
+         * 绘制连线
+         * @param {*Object} srcPt 
+         * @param {*Object} destPt 
+         * @param {*Number} step 
+         */
+        drawFn(srcPt, destPt, step) {
+            let _top = srcPt.x - destPt.x > 0 ? destPt.x : srcPt.x;
+            let _left = srcPt.y - destPt.y > 0 ? destPt.y : srcPt.y;
+            let _width = 0;
+            let _height = 0;
+
+            if (srcPt.x === destPt.x) {
+                _width = Math.abs(destPt.y - srcPt.y) * W_line
+                _height = 1;
+            };
+            if (srcPt.y === destPt.y) {
+                _width = 1;
+                _height = Math.abs(destPt.x - srcPt.x) * W_line;
+            };
+
+            $("#line" + step).addClass('fn-show').css({
+                "left": (_left + 0.5) * W_line,
+                "top": (_top + 0.5) * W_line,
+                "width": _width,
+                "height": _height
+            })
+        },
+
+        /**
+         * 清除连线
+         */
+        clearFn() {
+            $("#line1, #line2, #line3").removeClass('fn-show').css({
+                "width": 0,
+                "height": 0,
+                "left": 0,
+                "top": 0
+            })
         }
     };
 
@@ -166,15 +254,16 @@
             // console.log(picData);
 
             this.startView("start");
+            line.init();
             this.even();
             // $("#fn-start").click();
         },
 
-        startView(status){
+        startView(status) {
 
             temp.init(status);
-            
-            if(status === 'start'){
+
+            if (status === 'start') {
                 TOTALNum = ROW * COLUMN;
             };
 
@@ -182,7 +271,7 @@
             $("#fn-reset").removeClass("fn-hide");
 
             $("#app").animate({
-                "height" :  $("#app table").height()
+                "height": $("#app table").height()
             });
         },
 
@@ -190,7 +279,7 @@
         even() {
 
             let _t = this;
-            if(!/iphone|ipad|android/i.test(navigator.userAgent)){
+            if (!/iphone|ipad|android/i.test(navigator.userAgent)) {
 
                 $("#app").on("click", ".pic-link", function () {
                     $(".pic-link").removeClass("pic-false");
@@ -198,12 +287,12 @@
                         _t.pointFn($(this))
                     }
                 })
-    
+
                 // 开始
                 $("#fn-start").on("click", function () {
                     _t.startView('start');
                 });
-    
+
                 // 刷新
                 $("#fn-reset").on("click", function () {
                     _t.startView('reset');
@@ -227,7 +316,7 @@
             $("#fn-reset").on("touchend", function () {
                 _t.startView('reset');
             });
-            
+
         },
 
         // 记录点击
@@ -237,8 +326,9 @@
             let x = parseInt(dom.attr('data-x'));
             let y = parseInt(dom.attr('data-y'));
 
+            line.clearFn();
             dom.addClass("fn-crt");
-            // console.log({"x" : x, "y" : y});
+
             // return;
             if (!POINT_BOO) {
                 POINT_A = { "x": x, "y": y };
@@ -262,14 +352,14 @@
 
             // 位置是否相同
             if (POINT_A.x === POINT_B.x && POINT_A.y === POINT_B.y) {
-                console.log("the same pic");
+                // console.log("the same pic");
                 this.picStatusFn('error');
                 return;
             }
 
             // 图片是否相同
             if (CODEARR[POINT_A.x][POINT_A.y] !== CODEARR[POINT_B.x][POINT_B.y]) {
-                console.log("pic is no");
+                // console.log("pic is no");
                 this.picStatusFn('error');
                 return;
             };
@@ -291,7 +381,7 @@
 
             // default
             this.picStatusFn('error');
-            console.log(">>>> other ?");
+            // console.log(">>>> other ?");
         },
 
         // 0 折
@@ -300,6 +390,7 @@
 
             if (this.compareFn(POINT_A, POINT_B)) {
                 this.picStatusFn('remove');
+                line.drawCountFn(POINT_A, POINT_B);
                 return true;
             };
 
@@ -317,6 +408,8 @@
                 this.compareFn(POINT_B, Pt1, false) &&
                 CODEARR[Pt1.x][Pt1.y] === null
             ) {
+
+                line.drawCountFn(POINT_A, Pt1, POINT_B);
                 this.picStatusFn('remove');
                 return true;
             }
@@ -326,6 +419,7 @@
                 this.compareFn(POINT_B, Pt2, false) &&
                 CODEARR[Pt2.x][Pt2.y] === null
             ) {
+                line.drawCountFn(POINT_A, Pt2, POINT_B);
                 this.picStatusFn('remove');
                 return true;
             }
@@ -355,7 +449,8 @@
                     CODEARR[ChildPt.x][ChildPt.y] === null &&
                     _t.compareFn(ChildPt, POINT_B)
                 ) {
-                    console.log(">>> step1" + JSON.stringify(ChildPt));
+                    // console.log(">>> step1" + JSON.stringify(ChildPt));
+                    line.drawCountFn(POINT_A, res, ChildPt, POINT_B);
                     return true;
                 }
             }, 1);
@@ -372,7 +467,8 @@
                     CODEARR[ChildPt.x][ChildPt.y] === null &&
                     _t.compareFn(ChildPt, POINT_B)
                 ) {
-                    console.log(">>> step2" + JSON.stringify(ChildPt));
+                    // console.log(">>> step2" + JSON.stringify(ChildPt));
+                    line.drawCountFn(POINT_A, res, ChildPt, POINT_B);
                     return true;
                 }
             }, 1);
@@ -390,7 +486,8 @@
                     CODEARR[ChildPt.x][ChildPt.y] === null &&
                     _t.compareFn(ChildPt, POINT_B)
                 ) {
-                    console.log(">>> step3" + JSON.stringify(ChildPt));
+                    // console.log(">>> step3" + JSON.stringify(ChildPt));
+                    line.drawCountFn(POINT_A, res, ChildPt, POINT_B);
                     return true;
                 }
             }, -1);
@@ -408,7 +505,8 @@
                     CODEARR[ChildPt.x][ChildPt.y] === null &&
                     _t.compareFn(ChildPt, POINT_B)
                 ) {
-                    console.log(">>> step4" + JSON.stringify(ChildPt));
+                    // console.log(">>> step4" + JSON.stringify(ChildPt));
+                    line.drawCountFn(POINT_A, res, ChildPt, POINT_B);
                     return true;
                 }
             }, -1);
@@ -446,7 +544,7 @@
                         if (CODEARR[srcPt.x][base] === null) {
 
                             back = { "x": srcPt.x, "y": base };
-                            console.log("back x | 1: " + JSON.stringify(back));
+                            // console.log("back x | 1: " + JSON.stringify(back));
 
                             if (cb && cb(back)) {
                                 return true;
@@ -465,7 +563,7 @@
                     for (; roof >= base; roof--) {
                         if (CODEARR[srcPt.x][roof] === null) {
                             back = { "x": srcPt.x, "y": roof };
-                            console.log("back x | -1: " + JSON.stringify(back));
+                            // console.log("back x | -1: " + JSON.stringify(back));
 
                             if (cb && cb(back)) {
                                 return true;
@@ -492,7 +590,7 @@
                         if (CODEARR[base][srcPt.y] === null) {
 
                             back = { "x": base, "y": srcPt.y }
-                            console.log("back y | 1 : " + JSON.stringify(back));
+                            // console.log("back y | 1 : " + JSON.stringify(back));
                             if (cb && cb(back)) {
                                 return true;
                             }
@@ -508,7 +606,7 @@
                         if (CODEARR[roof][srcPt.y] === null) {
 
                             back = { "x": roof, "y": srcPt.y };
-                            console.log("back y | -1 : " + JSON.stringify(back));
+                            // console.log("back y | -1 : " + JSON.stringify(back));
 
                             if (cb && cb(back)) {
                                 return true;
