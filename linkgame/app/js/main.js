@@ -7,9 +7,9 @@
     var POINT_B = null;     // 点击第二下  {"x" : Number, "y" : Number}
     var POINT_BOO = false;  // 重置点击
     var CODEARR = [];       // pic arr
-    var ROW = 6;            // x
-    var COLUMN = 6;         // y
-    var PICNum = 9;         // pic 必须能被 x*y 整除
+    var ROW = 10;            // x
+    var COLUMN = 10;         // y
+    var PICNum = 25;         // pic 必须能被 x*y 整除
     var TOTALNum = ROW * COLUMN;
 
 
@@ -165,7 +165,7 @@
 
             // console.log(picData);
 
-            // this.startView("start");
+            this.startView("start");
             this.even();
             // $("#fn-start").click();
         },
@@ -173,6 +173,10 @@
         startView(status){
 
             temp.init(status);
+            
+            if(status === 'start'){
+                TOTALNum = ROW * COLUMN;
+            };
 
             $("#fn-start").html("重新开始")
             $("#fn-reset").removeClass("fn-hide");
@@ -188,25 +192,7 @@
             let _t = this;
             if(/iphone|ipad|android/.test(navigator.userAgent)){
 
-                $("#app").on("touchend", ".pic-link", function () {
-                    $(".pic-link").removeClass("pic-false");
-                    if (!$(this).hasClass('pic-true')) {
-                        _t.pointFn($(this))
-                    }
-                })
-    
-                // 开始
-                $("#fn-start").on("touchend", function () {
-                    TOTALNum = ROW * COLUMN;
-                    _t.startView('start');
-                });
-    
-                // 刷新
-                $("#fn-reset").on("touchend", function () {
-                    _t.startView('reset');
-                });
-
-                return;
+                alert("请在电脑上玩。")
             };
 
             $("#app").on("click", ".pic-link", function () {
@@ -218,7 +204,6 @@
 
             // 开始
             $("#fn-start").on("click", function () {
-                TOTALNum = ROW * COLUMN;
                 _t.startView('start');
             });
 
