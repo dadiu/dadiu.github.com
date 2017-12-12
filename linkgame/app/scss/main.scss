@@ -7,11 +7,14 @@
     -webkit-box-sizing: border-box;
 }
 
-$border-gray: 1px solid #888;
-$border-crt: 2px solid orange;
+
 $bg-normal: #555;
-$bg-border: #999;
+$bg-border: #eee;
+$bg-crt : rgb(221, 123, 4);
 $bg-line: darkred;
+$border-gray: 5px solid $bg-border;
+$border-crt: 2px solid rgb(255, 177, 31);
+
 $w-container: 480px;
 $row: 10;
 $column: 10;
@@ -27,12 +30,13 @@ h1 {
 #btn-bar {
     padding: 20px 0;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    line-height: 32px;
     a {
         letter-spacing: 1px;
-        display: inline-block;
         width: 80px;
         height: 32px;
-        line-height: 32px;
         background-color: #000;
         color: #fff;
         border-radius: 8px;
@@ -40,6 +44,18 @@ h1 {
     }
 }
 
+.btn-item{
+    margin: 0 5px;
+}
+#fn-time{
+    font-size: 16px;
+    font-weight: bold;
+    color: gray;
+    padding-left: 30px;
+    height: 32px;
+    background:url("../img/clock.png") no-repeat 0 center;
+    background-size: 24px 25px;
+}
 .fn-hide {
     display: none !important;
 }
@@ -47,13 +63,13 @@ h1 {
 #container {
     position: relative;
     width: $w-container;
-    height: $w-container;
+    // height: $w-container;
     margin: 0 auto;
     overflow: hidden;
 }
 
 #app {
-    background: $bg-normal;
+    background: $bg-border;
     height: 0;
 }
 
@@ -68,17 +84,18 @@ h1 {
     &:before {
         position: absolute;
         content: "";
-        width: 3px;
-        height: 3px;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
         background-color: $bg-line;
     }
     &:before {
-        top: -1px;
-        left: -1px;
+        top: -2px;
+        left: -2px;
     }
     &:after {
-        bottom: -1px;
-        right: -1px;
+        bottom: -2px;
+        right: -2px;
     }
     &.fn-show {
         display: block;
@@ -88,9 +105,9 @@ h1 {
 
 table {
     margin: 0 auto;
-    background: $bg-normal;
-    border-top: $border-gray;
-    border-left: $border-gray;
+    // background: $bg-normal;
+    // border-top: $border-gray;
+    // border-left: $border-gray;
 }
 
 tr {
@@ -98,7 +115,7 @@ tr {
     &:last-child {
         td {
             // height: 20px;
-            background: $bg-border;
+            // background: $bg-border;
         }
     }
 }
@@ -112,7 +129,7 @@ td {
     &:first-child,
     &:last-child {
         // width: 20px;
-        background: $bg-border;
+        // background: $bg-border;
     }
 }
 
@@ -128,15 +145,17 @@ img {
         display: block;
         background: no-repeat 0 0;
         background-size: 100% 100%;
-        width: $w-container / $column - 1;
-        height: $w-container / $row - 1;
+        width: $w-container / $column - 5;
+        height: $w-container / $row - 5;
+        border-radius: 5px;
+        box-shadow: 0 0 0 2px #fff;
         &.fn-crt {
             border: $border-crt;
         }
     }
     &-true {
         @extend .flipInY;
-        background: #000 !important;
+        background: $bg-crt !important;
     }
     &-false {
         @extend .shake;
@@ -266,8 +285,7 @@ img {
 }
 
 @-webkit-keyframes fadeIn {
-    0%,
-    100% {
+    0%, 100%{
         opacity: 0
     }
     50% {
@@ -276,8 +294,7 @@ img {
 }
 
 @keyframes fadeIn {
-    0%,
-    100% {
+    0%, 100%{
         opacity: 0
     }
     50% {
@@ -297,7 +314,7 @@ img {
     
     #container {
         width: $w-container-min;
-        height: $w-container-min;
+        // height: $w-container-min;
     }
 
     td {
@@ -307,8 +324,8 @@ img {
     
     // pic
     .pic-link {
-            width: $w-container-min / $column - 1;
-            height: $w-container-min / $row - 1;
+            width: $w-container-min / $column - 5;
+            height: $w-container-min / $row - 5;
         }
 }
 
@@ -320,7 +337,7 @@ img {
     
     #container {
         width: $w-container-mini;
-        height: $w-container-mini;
+        // height: $w-container-mini;
     }
 
     td {
@@ -330,8 +347,8 @@ img {
     
     // pic
     .pic-link {
-            width: $w-container-mini / $column - 1;
-            height: $w-container-mini / $row - 1;
+            width: $w-container-mini / $column - 5;
+            height: $w-container-mini / $row - 5;
         }
 }
 

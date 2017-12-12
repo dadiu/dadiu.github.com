@@ -11,13 +11,16 @@
     var COLUMN = 8;         // y
     var PICNum = 16;         // pic 必须能被 x*y 整除
     var TOTALNum = ROW * COLUMN;
-    var W_line = parseInt($("#container").width())/(COLUMN+2);
+    var W_line = parseInt($("#container").width()) / (COLUMN + 2);
+    var STARTTIME = 0;      // 开始时间戳
+    var COUNT_STARTTIME = 0;
 
     // CODEARR = [  x = index
     //     [pic0, pic1],
     //     [pic2, pic3]
     // ]
 
+    // 模板
     var temp = {
         TABLE: $("<table cellspacing='0'></table>"),
         myRow: ROW + 2,
@@ -175,6 +178,7 @@
         }
     };
 
+    // 线
     var line = {
 
         init() {
@@ -228,8 +232,8 @@
             };
 
             $("#line" + step).addClass('fn-show').css({
-                "left": (_left + 0.5) * W_line,
-                "top": (_top + 0.5) * W_line,
+                "left": (_left + 0.5) * W_line - 2,
+                "top": (_top + 0.5) * W_line - 2,
                 "width": _width,
                 "height": _height
             })
@@ -248,13 +252,67 @@
         }
     };
 
+    // 计时
+    var countTime = {
+
+        init() {
+
+            let _t = this;
+            let nowTime = null;
+            let dom = $("#fn-time");
+
+            function _count() {
+
+                setTimeout(() => {
+
+                    if (STARTTIME === 0) {
+                        return;
+                    };
+
+                    nowTime = Date.parse(new Date());
+                    dom.html(_t.changeUnit(STARTTIME, nowTime));
+                    _count();
+
+                }, 1000)
+            };
+
+            STARTTIME = Date.parse(new Date());
+
+            _count();
+        },
+
+        changeUnit(passTime, nowTime) {
+
+            let _diff = (nowTime - passTime) / 1000;
+            let _hour = Math.floor(_diff / 3600);
+            let _minute = Math.floor(_diff / 60);
+            let _second = (_diff - _hour * 3600) % 60;
+
+            if (_hour > 0) {
+                STARTTIME = 0;
+                aletr("已超过1小时，请重新开始");
+            }
+            if (_minute < 10) {
+                _minute = '0' + _minute;
+            }
+
+            if (_second < 10) {
+                _second = '0' + _second;
+            }
+
+            COUNT_STARTTIME = _minute + " : " + _second;
+
+            return COUNT_STARTTIME;
+
+        }
+    };
+
     var app = {
         init() {
 
             // console.log(picData);
-
-            this.startView("start");
-            line.init();
+            // this.startView("start");
+            // line.init();
             this.even();
             // $("#fn-start").click();
         },
@@ -265,6 +323,7 @@
 
             if (status === 'start') {
                 TOTALNum = ROW * COLUMN;
+                countTime.init();
             };
 
             $("#fn-start").html("重新开始")
@@ -709,7 +768,12 @@
             TOTALNum = TOTALNum - 2;
 
             if (TOTALNum === 0) {
-                alert("恭喜通关")
+
+                STARTTIME = 0;
+                $("#fn-time").html("00 : 00");
+                let timeArr = COUNT_STARTTIME.split(" : ");
+
+                alert("恭喜通关，用时 " + timeArr[0] + '分' + timeArr[1] + '秒');
             }
         }
     };
