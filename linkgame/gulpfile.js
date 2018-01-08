@@ -65,9 +65,9 @@ gulp.task('buildCss', function () {
 
 })
 
-gulp.task('buildJS', function () {
+gulp.task('buildPcJS', function () {
 
-    return gulp.src([ basePath + 'js/pic.js',  basePath + 'js/main.js'])
+    return gulp.src([ basePath + 'js/baseData.js', basePath + 'js/common.js',  basePath + 'js/main.js'])
         .pipe(babel({
             presets: ['es2015']
         }))
@@ -83,11 +83,37 @@ gulp.task('buildJS', function () {
         }))
 })
 
+gulp.task('buildAppJS', function () {
+
+    return gulp.src([ basePath + 'js/baseData.js', basePath + 'js/common.js',  basePath + 'js/app.js'])
+        .pipe(babel({
+            presets: ['es2015']
+        }))
+        .pipe(concat("app.js"))
+        .pipe(jshint())
+        .pipe(gulpIf(isDist, uglify()))
+        .pipe(rename({
+            suffix: ".min"
+        }))
+        .pipe(gulp.dest(_path + 'js'))
+        .pipe(reload({
+            stream: true
+        }))
+})
 
 gulp.task('copyFile', function () {
 
     return gulp.src([basePath + '*.html'])
         .pipe(gulp.dest(_path))
+        .pipe(reload({
+            stream: true
+        }))
+})
+
+gulp.task('copyMusic', function () {
+
+    return gulp.src([basePath + 'music/*.mp3'])
+        .pipe(gulp.dest(_path + 'music'))
         .pipe(reload({
             stream: true
         }))
@@ -118,10 +144,10 @@ gulp.task('browser-sync', function () {
 });
 
 // 本地预览
-gulp.task('default', ['buildClean', 'buildJS', 'buildCss', 'buildImg', 'copyFile', 'browser-sync'], function () {
+gulp.task('default', ['buildClean', 'buildAppJS', 'buildPcJS', 'buildCss', 'buildImg', 'copyFile', 'copyMusic', 'browser-sync'], function () {
 
     gulp.watch(basePath + 'scss/*.scss', ['buildCss']);
-    gulp.watch(basePath + 'js/*.js', [ 'buildJS']);
+    gulp.watch(basePath + 'js/*.js', ['buildAppJS', 'buildPcJS']);
     gulp.watch(basePath + '*.html', ['copyFile']);
 
 })
@@ -129,7 +155,7 @@ gulp.task('default', ['buildClean', 'buildJS', 'buildCss', 'buildImg', 'copyFile
 
 
 // 发布
-gulp.task('publish', ['buildClean', 'buildJS', 'buildCss', 'buildImg', 'copyFile'], function () {
+gulp.task('publish', ['buildClean', 'buildAppJS', 'buildPcJS', 'buildCss', 'buildImg', 'copyMusic', 'copyFile'], function () {
 
     console.log("publish ok")
 })

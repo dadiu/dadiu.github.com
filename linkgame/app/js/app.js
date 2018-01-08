@@ -1,11 +1,11 @@
 /*
  * @Author: whj 
- * @Date: 2018-01-08 14:11:07 
+ * @Date: 2018-01-08 14:15:50 
  * @Last Modified by: whj
- * @Last Modified time: 2018-01-08 15:56:31
+ * @Last Modified time: 2018-01-08 15:56:55
  */
 
-// 完结样式自定义
+ // 完结样式自定义
 function myIsEnd(totalTime) {
 
     let timeArr = totalTime.split(" : ");
@@ -14,14 +14,15 @@ function myIsEnd(totalTime) {
 
 ; (function () {
 
-
     var app = {
 
         init() {
-            if (/iphone|ipad|android/i.test(navigator.userAgent)) {
 
-                window.location.href = "app.html"
+            if (!/iphone|ipad|android/i.test(navigator.userAgent)) {
+
+                window.location.href = "index.html";
                 return;
+
             }
 
             // console.log(picData);
@@ -32,8 +33,7 @@ function myIsEnd(totalTime) {
         },
 
         even() {
-
-            $("#app").on("click", ".pic-link", function () {
+            $("#app").on("touchend", ".pic-link", function () {
                 $(".pic-link").removeClass("pic-false");
                 if (!$(this).hasClass('pic-true')) {
                     common.pointFn($(this))
@@ -41,15 +41,14 @@ function myIsEnd(totalTime) {
             })
 
             // 开始
-            $("#fn-start").on("click", function () {
+            $("#fn-start").on("touchend", function () {
                 common.startView('start', true);
             });
 
             // 刷新
-            $("#fn-reset").on("click", function () {
+            $("#fn-reset").on("touchend", function () {
                 common.startView('reset', true);
             });
-
         }
     };
 

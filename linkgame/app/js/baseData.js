@@ -28,3 +28,13 @@ var picData = [
     320005,
     320005
 ];
+
+var musicData = [
+    "music1",
+    "music2",
+    "music3",
+    "music4",
+    "music5",
+    "music6",
+    "music7"
+];

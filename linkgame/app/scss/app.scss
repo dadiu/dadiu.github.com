@@ -99,7 +99,7 @@ h1 {
     }
     &.fn-show {
         display: block;
-        @extend .fadeIn;
+        // @extend .fadeIn;
     }
 }
 
@@ -306,6 +306,52 @@ img {
     -webkit-animation-name: fadeIn;
     animation-name: fadeIn
 }
+
+// media
+@media screen and (max-width:480px) {
+
+    $w-container-min: 360px;   
+    
+    #container {
+        width: $w-container-min;
+        // height: $w-container-min;
+    }
+
+    td {
+        width: $w-container-min / $column;
+        height: $w-container-min / $row;
+    }
+    
+    // pic
+    .pic-link {
+            width: $w-container-min / $column - 5;
+            height: $w-container-min / $row - 5;
+        }
+}
+
+
+// media
+@media screen and (max-width:320px) {
+    
+    $w-container-mini: 320px;   
+    
+    #container {
+        width: $w-container-mini;
+        // height: $w-container-mini;
+    }
+
+    td {
+        width: $w-container-mini / $column;
+        height: $w-container-mini / $row;
+    }
+    
+    // pic
+    .pic-link {
+            width: $w-container-mini / $column - 5;
+            height: $w-container-mini / $row - 5;
+        }
+}
+
 
 
 // pic arr 
