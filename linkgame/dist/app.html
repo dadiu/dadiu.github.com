@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,minimum-scale=1,  user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>连连看</title>
     <link rel="stylesheet" href="css/common.min.css">
     <link rel="stylesheet" href="css/app.min.css">
 </head>
+
 <body>
-    
+
     <h1>梦三国-连连看</h1>
-    
+
     <p id="btn-bar">
         <a href="javascript:;" id="fn-start" class="btn-item">开始</a>
         <a href="javascript:;" id="fn-reset" class="btn-item fn-hide">刷新当前</a>
@@ -24,7 +26,11 @@
         <div id="line3"></div>
     </div>
 
+    <audio preload="auto" id="fn-music">
+        <source src="music\music1.mp3" type="audio/mp3">
+    </audio>
     <script src="https://static.m3guo.com/m3guo/js/jquery-3.2.1.min.js"></script>
     <script src="js/app.min.js"></script>
 </body>
+
 </html>

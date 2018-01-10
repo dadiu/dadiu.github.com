@@ -314,24 +314,40 @@ var countTime = {
 // 音频
 var musicFn = {
 
-    idx : musicData.length,
+    idx: musicData.length,
 
     init() {
 
         let musicIdx = parseInt(Math.random() * this.idx);
-        let dom = '<audio autoplay id="fn-music">\
-                    <source src="music\\' + musicData[musicIdx] + '.mp3" type="audio/mp3">\
-                </audio >';
+        // let dom = '<audio preload="auto" id="fn-music">\
+        //             <source src="music\\' + musicData[musicIdx] + '.mp3" type="audio/mp3">\
+        //         </audio >';
 
-        $("body").append(dom);
+        // $("body").append(dom);
+
+        let audio = document.getElementById('fn-music');
+        audio.setAttribute("src", "music\\" + musicData[musicIdx] + ".mp3");
+        // audio.load();
+        audio.play();
+
+        document.addEventListener("WeixinJSBridgeReady", function () {
+            audio.play();
+        }, false);
     },
 
     changeFn() {
 
-        let musicIdx = parseInt(Math.random() * this.idx);
-        let dom = $("#fn-music");
+        this.init();
+        return;
 
-        dom.prop("src", "music\\" + musicData[musicIdx] + ".mp3")
+        let musicIdx = parseInt(Math.random() * this.idx);
+        let audio = document.getElementById('fn-music');
+
+        audio.setAttribute("src", "music\\" + musicData[musicIdx] + ".mp3");
+        audio.load();
+
+        
+
         // console.log(musicIdx);
     }
 }

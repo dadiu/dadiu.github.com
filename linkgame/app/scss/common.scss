@@ -70,6 +70,7 @@ h1 {
 #line2,
 #line3 {
     @extend .animated-slow;
+    z-index: 99;
     display: none;
     position: absolute;
     background-color: $bg-line;
