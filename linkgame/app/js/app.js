@@ -2,7 +2,7 @@
  * @Author: whj 
  * @Date: 2018-01-08 14:15:50 
  * @Last Modified by: whj
- * @Last Modified time: 2018-01-10 13:45:03
+ * @Last Modified time: 2018-01-10 14:19:30
  */
 
  // 完结样式自定义
@@ -28,7 +28,7 @@ function myIsEnd(totalTime) {
             // console.log(picData);
             // line.init();
             this.even();
-            common.startView('start', true);
+            // common.startView('start', true);
         },
 
         even() {

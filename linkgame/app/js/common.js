@@ -319,11 +319,6 @@ var musicFn = {
     init() {
 
         let musicIdx = parseInt(Math.random() * this.idx);
-        // let dom = '<audio preload="auto" id="fn-music">\
-        //             <source src="music\\' + musicData[musicIdx] + '.mp3" type="audio/mp3">\
-        //         </audio >';
-
-        // $("body").append(dom);
 
         let audio = document.getElementById('fn-music');
         audio.setAttribute("src", "music\\" + musicData[musicIdx] + ".mp3");
@@ -333,22 +328,6 @@ var musicFn = {
         document.addEventListener("WeixinJSBridgeReady", function () {
             audio.play();
         }, false);
-    },
-
-    changeFn() {
-
-        this.init();
-        return;
-
-        let musicIdx = parseInt(Math.random() * this.idx);
-        let audio = document.getElementById('fn-music');
-
-        audio.setAttribute("src", "music\\" + musicData[musicIdx] + ".mp3");
-        audio.load();
-
-        
-
-        // console.log(musicIdx);
     }
 }
 
@@ -761,7 +740,7 @@ var common = {
             pic.removeClass("pic-false").addClass("pic-true");
 
             if (isMusic && typeof musicData !== "undefined") {
-                musicFn.changeFn();
+                musicFn.init();
             };
 
             this.isTheEndFn();
