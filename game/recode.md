@@ -3,12 +3,56 @@
 ```json
 
 {
-    "specialty" : {     // 特产
+    "path":{    // 图片路径
 
+        "specialty" : "",
+        "achievement" : "",
+        "souvenir" : "",
+        "market" : ""
+        
     },
-    "achievement" : {
-        "0" : "",
-        "1" : ""
+    "specialty" : {     // 特产说明
+        "0" : {
+            "name" : "",
+            "info" : ""
+        },
+        "1" : {
+            "name" : "",
+            "info" : ""
+        }
+    },
+    
+    "achievement" : {   // 成就说明
+        "0" : {
+            "name" : "",
+            "info" : ""
+        },
+        "1" : {
+            "name" : "",
+            "info" : ""
+        }
+    },
+
+    "souvenir" : {      // 纪念品说明
+        "0" : {
+            "name" : "",
+            "info" : ""
+        },
+        "1" : {
+            "name" : "",
+            "info" : ""
+        }
+    },
+
+    "market" : {       // 商城
+        "0" : {
+            "name" : "",
+            "info" : ""
+        },
+        "1" : {
+            "name" : "",
+            "info" : ""
+        }
     }
 }
 
