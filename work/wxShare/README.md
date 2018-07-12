@@ -20,14 +20,18 @@
 ## 接入说明
 
 1. 引入地址:
+
 ```js
+
   <script src="//static.m3guo.com/m3guo/js/jweixin-1.2.0.js"></script>
   <script src="//static.m3guo.com/m3guo/js/wxShare-v2.min.js"></script>
 
 ```
 
 2. 设置分享内容
+
 ```js
+
     // 分享内容
     wxShareObj = {
         title: "分享标题文字", // 分享标题
