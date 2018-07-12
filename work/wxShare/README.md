@@ -32,8 +32,8 @@
 
 ```js
 
-    // 分享内容
-    wxShareObj = {
+    // 使用方法
+    wxApi.init({
         title: "分享标题文字", // 分享标题
         desc: "分享描述文字", // 分享描述
         link: "share link", // 分享链接
@@ -44,8 +44,6 @@
         error: function() {
             alert("分享失败");
         }
-    };
-
-    // 使用方法
-    wxApi.init(wxShareObj);
+    });
+    
 ```
