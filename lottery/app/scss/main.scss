@@ -1,0 +1,147 @@
+/*
+ * @Author: whj 
+ * @Date: 2018-06-27 13:39:58 
+ * @Last Modified by: whj
+ * @Last Modified time: 2018-06-27 14:44:57
+ */
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 14px;
+}
+
+#lottery {
+    width: 100%;
+    height: 500px;
+    position: relative;
+    &- {
+        &bg {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 240px;
+            height: 240px;
+            margin-left: -120px;
+            margin-top: -120px;
+            background: url("../img/bg.png") no-repeat center center;
+            &.fn-run {
+                @extend .rotateInRun;
+            }
+        }
+        &btn {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 48px;
+            height: 48px;
+            margin-left: -24px;
+            margin-top: -24px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #333;
+            color: #eee;
+            &:before {
+                position: absolute;
+                content: "▲";
+                font-size: 20px;
+                top: -20px;
+                left: 0;
+                width: 100%;
+                text-align: center;
+                color: #333;
+            }
+            &.fn-crt {
+                background-color: #555;
+                &:before {
+                    color: #555;
+                }
+            }
+        }
+        &end {
+            @extend .my-animate;
+            position: fixed;
+            left: 50%;
+            top: -100vh;
+            margin-left: -160px;
+            width: 320px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #333;
+            border: 1px solid #000;
+            color: #eee;
+            &.fn-show {
+                top: 100px;
+            }
+        }
+    }
+}
+
+// animate
+.my-animate {
+    transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -webkit-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+}
+
+@mixin rotateInDeg($degs: 0) {
+    -webkit-transform-origin: center center;
+    -ms-transform-origin: center center;
+    transform-origin: center center;
+    -webkit-transform: rotate($degs);
+    -ms-transform: rotate($degs);
+    transform: rotate($degs);
+}
+
+@-webkit-keyframes rotateIn {
+    0% {
+        @include rotateInDeg(-360deg)
+    }
+    100% {
+        @include rotateInDeg()
+    }
+}
+
+@keyframes rotateIn {
+    0% {
+        @include rotateInDeg(-360deg)
+    }
+    100% {
+        @include rotateInDeg()
+    }
+}
+
+.rotateInRun {
+    -webkit-animation: rotateIn .5s infinite linear;
+    animation: rotateIn .5s infinite linear
+}
+
+.rotateInStop {
+    &-0 {
+        @include rotateInDeg(-30deg)
+    }
+    &-1 {
+        @include rotateInDeg(-90deg)
+    }
+    &-2 {
+        @include rotateInDeg(-150deg)
+    }
+    &-3 {
+        @include rotateInDeg(-210deg)
+    }
+    &-4 {
+        @include rotateInDeg(-270deg)
+    }
+    &-5 {
+        @include rotateInDeg(-330deg)
+    }
+}
