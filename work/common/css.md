@@ -2,6 +2,14 @@
 # css
 
 ``` css
+
+	button,
+	a {
+	    outline: none;
+	    -webkit-tap-highlight-color: transparent;
+	}
+
+
 	.ani-once {
 	    transition: all .2s ease-out;
 	    -moz-transition: all .2s ease-out;
@@ -105,5 +113,13 @@
 	    background-image: -o-linear-gradient(top, $hdColor, $ftColor);
 	}
 
+	@mixin rotateInDeg($degs: 0) {
+	    -webkit-transform-origin: center center;
+	    -ms-transform-origin: center center;
+	    transform-origin: center center;
+	    -webkit-transform: rotate($degs);
+	    -ms-transform: rotate($degs);
+	    transform: rotate($degs);
+	}
 
 ```

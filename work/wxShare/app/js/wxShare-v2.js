@@ -2,7 +2,7 @@
  * @Author: whj 
  * @Date: 2018-07-11 17:55:53 
  * @Last Modified by: whj
- * @Last Modified time: 2018-07-12 12:45:10
+ * @Last Modified time: 2018-07-13 15:09:28
  */
 
 // jsonp fn
@@ -107,7 +107,7 @@ var wxApi = {
     wxRegister(cb, customData) {
 
         // console.log(link);
-        let link = encodeURIComponent(window.location.href.split("#")[0]);
+        let link = window.location.href.split("#")[0];
 
         jsonp({
             url: '//weixinmp.m3guo.com/wechat/get_signature/',
