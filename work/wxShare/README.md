@@ -6,7 +6,7 @@
 - 支持域名：
   + www.m3guo.com
   + action.17m3.com
-  + www.dianhun.cn
+  + m.m3guo.com
 
 - http & https 均可
 - 依赖微信sdk版本 1.2.0
