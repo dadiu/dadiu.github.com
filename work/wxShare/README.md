@@ -36,8 +36,8 @@
     wxApi.init({
         title: "分享标题文字", // 分享标题
         desc: "分享描述文字", // 分享描述
-        link: "share link", // 分享链接
-        imgUrl: window.location.href, // 分享图标
+        link: window.location.href, // 分享链接
+        imgUrl: '', // 分享图标
         success: function() {
             alert("分享成功");
         },
