@@ -1,7 +1,8 @@
 # js
 
-```js
 
+## 自定义计算touch位移
+```js
 
     var app = {
 
@@ -57,5 +58,84 @@
             }
         }
     };
+ ```
+ 
+## 计算鼠标位置 - 跟随道具详情
+ ```js   
+    
+    tipSeatFn: function(event, dom, maxHeight) {
 
+        let x = event.clientX;
+        let y = event.clientY;
+        // let dom = $("#fn-eq");
+        let BODY = $(window),
+            bodyH = BODY.height(),
+            bodyW = BODY.width();
+
+        if (x + maxHeight < bodyW && y + maxHeight < bodyH) {
+            return {
+                left: x + 30,
+                top: y + 30
+            }
+        };
+
+        if (x + maxHeight >= bodyW && y + maxHeight >= bodyH) {
+            return {
+                left: x - parseInt(dom.width(), 10) + 40,
+                top: y - parseInt(dom.height(), 10) - 40
+            }
+        };
+
+        if (x + maxHeight >= bodyW) {
+            return {
+                left: x - parseInt(dom.width(), 10) + 40,
+                top: y + 10
+            }
+        };
+        if (y + maxHeight >= bodyH) {
+            return {
+                left: x + 10,
+                top: y - parseInt(dom.height(), 10) - 40
+            }
+        }
+    },
+
+```
+
+## 短信倒计时
+```js
+    
+    // 方法
+    countTime(max, changeFn, endFn) {
+
+        function count(max) {
+
+            setTimeout(() => {
+                if (max > 0) {
+                    changeFn && changeFn(max);
+                    max--;
+                    count(max);
+                } else {
+                    endFn && endFn();
+                }
+            }, 1000)
+        }
+
+        changeFn(max);
+        max--;
+        count(max);
+    },
+    
+    // 使用
+    common.countTime(
+        60,
+        function(num) {
+            dom.html(num + '秒')
+                .addClass('fn-gray');
+        },
+        function() {
+            dom.html('获取验证码')
+                .removeClass('fn-gray');
+        })
+    ),
 ```

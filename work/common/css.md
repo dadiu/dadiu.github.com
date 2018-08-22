@@ -1,6 +1,8 @@
 
 # css
 
+
+## 通用
 ``` css
 
 	button,
@@ -8,8 +10,15 @@
 	    outline: none;
 	    -webkit-tap-highlight-color: transparent;
 	}
+	
+	table {
+        border-spacing: 0;
+    }
 
+```
 
+## 动画
+``` css
 	.ani-once {
 	    transition: all .2s ease-out;
 	    -moz-transition: all .2s ease-out;
@@ -94,13 +103,23 @@
 	    animation-name: bounceInUp;
 	}
 
+
+```
+
+## 文字排列
+``` css
+
+    // 竖排
 	.ertical-rl{
 		-webkit-writing-mode: vertical-rl;
 	    writing-mode: tb-rl;
 	    writing-mode: vertical-rl;
 	}
 
-		
+```
+
+## mixin
+``` css
 	@mixin bg-none() {
 	    background: no-repeat center center;
 	    background-size: 100%, 100%;
@@ -121,5 +140,4 @@
 	    -ms-transform: rotate($degs);
 	    transform: rotate($degs);
 	}
-
 ```
