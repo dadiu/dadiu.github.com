@@ -12,20 +12,22 @@
 
     微信分享测试
 
+    <script src="//static.m3guo.com/m3guo/js/jweixin-1.4.0.js"></script>
+    <script src="//static.m3guo.com/m3guo/js/wxShare-v3.min.js"></script>
 
-    <script src="//static.m3guo.com/m3guo/js/jweixin-1.2.0.js"></script>
-    <script src="//static.m3guo.com/m3guo/js/wxShare-v2.min.js"></script>
     <script>
         wxApi.init({
-            title: "分享标题文字", // 分享标题
-            desc: "分享描述文字", // 分享描述
-            link: "https://www.m3guo.com/activity/201807/test/", // 分享链接
-            imgUrl: "https://www.m3guo.com/activity/201807/test/img/share.jpg", // 分享图标
+            title: "分享标题文字1.4.0", // 分享标题
+            desc: "分享描述文字4.4.0", // 分享描述
+            link: "https://www.m3guo.com/activity/201809/test/", // 分享链接
+            imgUrl: "https://www.m3guo.com/activity/201809/test/img/share.jpg", // 分享图标
             success: function() {
+                // 用户确认分享后执行的回调函数
                 alert("分享成功");
             },
-            error: function() {
-                alert("分享失败");
+            cancel: function() {
+                // 用户取消分享后执行的回调函数
+                alert("取消分享");
             }
         });
     </script>
